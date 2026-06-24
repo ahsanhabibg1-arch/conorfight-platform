@@ -5,7 +5,7 @@
 // ============================================================
 
 // ⚠️ DEPLOYMENT: set this to your live Render backend URL before going live.
-const PRODUCTION_API = 'https://api.conorfight.com';
+const PRODUCTION_API = 'https://conorfight-platform.onrender.com';
 
 const host = window.location.hostname;
 const IS_LOCAL = host === 'localhost' || host === '127.0.0.1' || host === '';
