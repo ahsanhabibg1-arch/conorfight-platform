@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/fight-cards/:slug",
+      "destination": "/pages/fight-card-detail.html"
+    }
+  ]
+}

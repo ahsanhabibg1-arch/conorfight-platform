@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="UFC 329 — Conor McGregor vs Max Holloway. Fight card, predictions, records and how to watch live." />
+    <title>ConorFight · UFC 329 — Conor McGregor vs Max Holloway</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🥊 Conor<span>Fight</span></a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="fight-cards.html">Fight Cards</a>
+                <a href="conor-mcgregor.html">Conor McGregor</a>
+                <a href="max-holloway.html">Max Holloway</a>
+                <a href="how-to-watch.html">How To Watch</a>
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== HERO ===== -->
+        <section id="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="eyebrow">UFC 329 · Main Event</span>
+                    <h1 id="hero-title">Loading…</h1>
+                    <div id="hero-subtitle" class="hero-subtitle rich-text"></div>
+                    <div class="hero-buttons">
+                        <a href="blog.html" class="btn btn-primary">Read Prediction</a>
+                        <a href="fight-cards.html" class="btn btn-ghost">View Fight Card</a>
+                    </div>
+                </div>
+                <div class="hero-poster" id="hero-image">
+                    <div class="poster-frame">
+                        <span class="poster-tag">UFC 329</span>
+                        <span class="poster-vs">CONOR <em>vs</em> MAX</span>
+                        <span class="poster-sub">Event Poster</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== COUNTDOWN TIMER ===== -->
+        <section id="countdown" class="countdown-section">
+            <div class="container countdown-inner">
+                <span class="countdown-eyebrow">⏱ Next UFC Event</span>
+                <h2 class="countdown-event">UFC 329</h2>
+                <p class="countdown-fighters">Conor McGregor <span>vs</span> Max Holloway</p>
+                <div class="countdown-timer" id="countdown-timer" role="timer" aria-live="polite">
+                    <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hours</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd-minutes">00</span><span class="cd-label">Minutes</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd-seconds">00</span><span class="cd-label">Seconds</span></div>
+                </div>
+                <p class="countdown-date" id="countdown-date">July 11, 2026</p>
+            </div>
+        </section>
+
+        <!-- ===== WHAT YOU GET ===== -->
+        <section id="what-you-get" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">What You'll <span class="accent">Get Here</span></h2>
+                <ul id="what-you-get-list" class="card-grid">
+                    <!-- Dynamically loaded -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT EVENT (Conor + Max bios side-by-side) ===== -->
+        <section id="about-event" class="section">
+            <div class="container">
+                <h2 class="section-title">Inside The <span class="accent">Matchup</span></h2>
+                <div class="fighter-split">
+                    <article class="fighter-card fighter-conor">
+                        <header class="fighter-card-head">
+                            <div class="fighter-avatar" id="conor-avatar"></div>
+                            <div class="fighter-head-text">
+                                <span class="fighter-flag">🇮🇪</span>
+                                <h3>Conor McGregor</h3>
+                                <span class="fighter-tag">The Notorious</span>
+                            </div>
+                        </header>
+                        <div id="conor-content" class="rich-text"></div>
+                    </article>
+                    <article class="fighter-card fighter-max">
+                        <header class="fighter-card-head">
+                            <div class="fighter-avatar" id="max-avatar"></div>
+                            <div class="fighter-head-text">
+                                <span class="fighter-flag">🇺🇸</span>
+                                <h3>Max Holloway</h3>
+                                <span class="fighter-tag">Blessed</span>
+                            </div>
+                        </header>
+                        <div id="max-content" class="rich-text"></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FIGHT RECORDS ===== -->
+        <section id="fight-records" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">Tale Of The <span class="accent">Tape</span></h2>
+                <div class="records-split">
+                    <div id="conor-record" class="stat-card stat-conor rich-text"></div>
+                    <div class="vs-badge">VS</div>
+                    <div id="max-record" class="stat-card stat-max rich-text"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== KEY INFO TABLE ===== -->
+        <section id="key-info" class="section">
+            <div class="container">
+                <h2 class="section-title">UFC 329 <span class="accent">Key Information</span></h2>
+                <div id="key-info-table" class="table-wrap"></div>
+            </div>
+        </section>
+
+        <!-- ===== HOW TO WATCH ===== -->
+        <section id="how-to-watch" class="section section-alt">
+            <div class="container how-to-watch-inner">
+                <h2 class="section-title">How To <span class="accent">Watch Live</span></h2>
+                <div id="how-to-watch-content" class="rich-text"></div>
+                <a href="how-to-watch.html" class="btn btn-gold btn-watch">▶ Watch UFC 329 Now</a>
+                <p class="affiliate-note">As an affiliate partner we may earn a commission from qualifying purchases.</p>
+            </div>
+        </section>
+
+        <!-- ===== CONCLUSION ===== -->
+        <section id="conclusion" class="section">
+            <div class="container conclusion-inner">
+                <h2 id="conclusion-title" class="section-title">Conclusion</h2>
+                <div id="conclusion-content" class="rich-text"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h4>🥊 ConorFight</h4>
+                <p>Your ultimate source for UFC 329 coverage — fight cards, predictions and live streaming guides.</p>
+            </div>
+            <div>
+                <h4>Site</h4>
+                <a href="fight-cards.html">Fight Cards</a>
+                <a href="how-to-watch.html">How To Watch</a>
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div>
+                <h4>Fighters</h4>
+                <a href="conor-mcgregor.html">Conor McGregor</a>
+                <a href="max-holloway.html">Max Holloway</a>
+            </div>
+            <div>
+                <h4>Follow</h4>
+                <div class="social-links">
+                    <a href="#">🐦 Twitter</a>
+                    <a href="#">📘 Facebook</a>
+                    <a href="#">📸 Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                &copy; 2026 ConorFight. All rights reserved. Not affiliated with the UFC® or Zuffa LLC.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script type="module" src="../js/homepage.js"></script>
+</body>
+</html>

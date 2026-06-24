@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Details · ConorFight</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">🥊 Conor<span>Fight</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html">Home</a>
+                <a href="fight-cards.html" class="active">Fight Cards</a>
+                <a href="conor-mcgregor.html">Conor McGregor</a>
+                <a href="max-holloway.html">Max Holloway</a>
+                <a href="how-to-watch.html">How To Watch</a>
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="fight-cards.html" class="btn btn-ghost" style="margin:28px 0;">← Back to Fight Cards</a>
+        </div>
+
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div id="detail-container">
+                    <p class="is-empty">Loading event details…</p>
+                </div>
+
+                <div style="text-align:center; margin-top:48px;">
+                    <a href="how-to-watch.html" class="btn btn-gold">▶ How To Watch</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom"><div class="container">&copy; 2026 ConorFight. All rights reserved. Not affiliated with the UFC® or Zuffa LLC.</div></div>
+    </footer>
+
+    <script src="../js/site.js"></script>
+    <script type="module" src="../js/fight-card-detail.js"></script>
+</body>
+</html>
