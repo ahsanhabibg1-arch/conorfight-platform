@@ -1,4 +1,4 @@
-import { getHomepage, getFighters } from './api.js';
+import { getHomepage, getFighters, STRAPI_URL } from './api.js';
 
 /* ============================================================
    Helpers
@@ -58,8 +58,6 @@ function renderRichText(content) {
     return '';
 }
 
-// Strapi media base URL (local dev). Change this for production.
-const STRAPI_URL = 'http://localhost:1337';
 
 // Render the hero poster image. Supports both Strapi v5 (flattened:
 // heroImage.url) and v4 (nested: heroImage.data.attributes.url) shapes.
@@ -165,7 +163,6 @@ async function loadFighterAvatars() {
     try {
         const res = await getFighters();
         const list = res?.data ?? [];
-        console.log('🥊 Fighters loaded:', list);
 
         const conor = findFighter(list, 'conor');
         const max = findFighter(list, 'max');
@@ -240,7 +237,6 @@ function initNav() {
    ============================================================ */
 async function loadHomepage() {
     try {
-        console.log('🔄 Loading homepage...');
         const response = await getHomepage();
 
         // Strapi v5 flattens fields onto `data` (no `data.attributes`).
@@ -252,7 +248,6 @@ async function loadHomepage() {
             setText('hero-title', 'Data Unavailable');
             return;
         }
-        console.log('✅ Data loaded:', attrs);
 
         // --- 1. Hero (title, subtitle, poster image) ---
         try {
@@ -263,7 +258,6 @@ async function loadHomepage() {
 
         // --- 2. What You'll Get (field is "whatYouGet" OR "whatYouGetItem") ---
         try {
-            console.log('🔎 whatYouGet:', attrs.whatYouGet, '| whatYouGetItem:', attrs.whatYouGetItem);
             const rawItems = attrs.whatYouGet ?? attrs.whatYouGetItem ?? [];
             const items = Array.isArray(rawItems) ? rawItems : [];
             if (items.length > 0) {
@@ -329,7 +323,6 @@ async function loadHomepage() {
             setHTML('conclusion-content', renderRichText(attrs.conclusionContent));
         } catch (e) { console.warn('Conclusion render skipped:', e); }
 
-        console.log('✅ Homepage rendered successfully!');
 
     } catch (error) {
         console.error('❌ Critical Homepage Load Error:', error);

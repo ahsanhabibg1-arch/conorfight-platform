@@ -1,8 +1,15 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
-    {
-      "source": "/fight-cards/:slug",
-      "destination": "/pages/fight-card-detail.html"
-    }
+    { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/fight-cards", "destination": "/pages/fight-cards.html" },
+    { "source": "/how-to-watch", "destination": "/pages/how-to-watch.html" },
+    { "source": "/conor-mcgregor", "destination": "/pages/conor-mcgregor.html" },
+    { "source": "/max-holloway", "destination": "/pages/max-holloway.html" },
+    { "source": "/blog", "destination": "/pages/blog.html" },
+    { "source": "/faq", "destination": "/pages/faq.html" },
+    { "source": "/fight-cards/:slug", "destination": "/pages/fight-card-detail.html" },
+    { "source": "/blog/:slug", "destination": "/pages/blog-detail.html" }
   ]
 }

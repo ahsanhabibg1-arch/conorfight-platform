@@ -1,6 +1,4 @@
-import { getFightCards } from './api.js';
-
-const STRAPI_URL = 'http://localhost:1337';
+import { getFightCards, STRAPI_URL } from './api.js';
 
 /* ============================================================
    Helpers (self-contained copies from fight-cards.js)
@@ -210,6 +208,81 @@ function updateSEO(event) {
     }
 }
 
+// Set or update the canonical link to the clean event URL.
+function setCanonical(slug) {
+    const href = `https://conorfight.com/fight-cards/${slug}`;
+    let tag = document.head.querySelector('link[rel="canonical"]');
+    if (!tag) {
+        tag = document.createElement('link');
+        tag.setAttribute('rel', 'canonical');
+        document.head.appendChild(tag);
+    }
+    tag.setAttribute('href', href);
+    upsertMeta('property', 'og:url', href);
+}
+
+// Inject BreadcrumbList JSON-LD: Home › Fight Cards › Event.
+function injectBreadcrumb(event, slug) {
+    try {
+        const a = fields(event);
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://conorfight.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Fight Cards", "item": "https://conorfight.com/fight-cards" },
+                { "@type": "ListItem", "position": 3, "name": a.eventName || "Event", "item": `https://conorfight.com/fight-cards/${slug}` }
+            ]
+        };
+        let tag = document.getElementById('breadcrumb-schema');
+        if (!tag) {
+            tag = document.createElement('script');
+            tag.type = 'application/ld+json';
+            tag.id = 'breadcrumb-schema';
+            document.head.appendChild(tag);
+        }
+        tag.textContent = JSON.stringify(schema);
+    } catch (e) {
+        console.warn('Breadcrumb schema skipped:', e);
+    }
+}
+
+// Inject SportsEvent JSON-LD structured data.
+function injectEventSchema(event) {
+    try {
+        const a = fields(event);
+        const image = mediaUrl(a.poster);
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "SportsEvent",
+            "name": a.eventName || "UFC Event",
+            "startDate": a.eventDate || undefined,
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+            "image": image || undefined,
+            "location": {
+                "@type": "Place",
+                "name": a.venue || "TBD",
+                "address": a.location || "TBD"
+            },
+            "competitor": [
+                { "@type": "Person", "name": relationName(a.mainEvent) || "TBD" },
+                { "@type": "Person", "name": relationName(a.coMainEvent) || "TBD" }
+            ]
+        };
+        let tag = document.getElementById('event-schema');
+        if (!tag) {
+            tag = document.createElement('script');
+            tag.type = 'application/ld+json';
+            tag.id = 'event-schema';
+            document.head.appendChild(tag);
+        }
+        tag.textContent = JSON.stringify(schema);
+    } catch (e) {
+        console.warn('Event schema injection skipped:', e);
+    }
+}
+
 /* ============================================================
    Load
    ============================================================ */
@@ -220,23 +293,24 @@ async function loadDetail() {
 
     const slug = getSlug();
     if (!slug) {
-        container.innerHTML = '<p class="is-empty">No event specified. <a href="fight-cards.html">Browse all fight cards →</a></p>';
+        container.innerHTML = '<p class="is-empty">No event specified. <a href="/fight-cards">Browse all fight cards →</a></p>';
         return;
     }
 
     try {
         const res = await getFightCards();
         const events = (Array.isArray(res?.data) ? res.data : []).map(fields);
-        console.log('🥊 Looking for slug:', slug, '| events:', events);
-
         const event = events.find(e => e.slug === slug);
         if (!event) {
-            container.innerHTML = `<p class="is-empty">Event not found. <a href="fight-cards.html">Back to fight cards →</a></p>`;
+            container.innerHTML = `<p class="is-empty">Event not found. <a href="/fight-cards">Back to fight cards →</a></p>`;
             return;
         }
 
         container.innerHTML = renderDetail(event);
         updateSEO(event);
+        setCanonical(slug);
+        injectEventSchema(event);
+        injectBreadcrumb(event, slug);
     } catch (error) {
         console.error('❌ Event detail load error:', error);
         container.innerHTML = '<p class="is-empty">Unable to load this event right now. Please try again later.</p>';

@@ -1,6 +1,4 @@
-import { getFighters } from './api.js';
-
-const STRAPI_URL = 'http://localhost:1337';
+import { getFighters, STRAPI_URL } from './api.js';
 
 // Build a full media URL (v5 flattened + v4 nested), optional format.
 function mediaUrl(media, prefer = null) {

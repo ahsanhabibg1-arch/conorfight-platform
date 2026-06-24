@@ -1,6 +1,6 @@
 // CMS-driven blog listing: fetches posts from Strapi and renders cards.
 
-const STRAPI_URL = 'http://localhost:1337';
+import { STRAPI_URL } from './api.js';
 
 /* ---------- Helpers ---------- */
 function escapeHTML(str) {
@@ -51,7 +51,7 @@ function renderCard(post) {
         : `<div class="blog-thumb">🥊</div>`;
 
     return `<article class="blog-card">
-        <a href="blog-detail.html?slug=${slug}" class="blog-card-link">
+        <a href="/blog/${slug}" class="blog-card-link">
             ${imgHTML}
             <div class="blog-body">
                 ${category ? `<span class="blog-tag">${escapeHTML(category)}</span>` : ''}
@@ -78,7 +78,6 @@ async function loadBlogs() {
         const json = await res.json();
 
         const posts = (Array.isArray(json?.data) ? json.data : []).map(fields);
-        console.log('📝 Blog posts loaded:', posts);
 
         if (posts.length === 0) {
             container.innerHTML = '<p class="is-empty">No blog posts yet.</p>';

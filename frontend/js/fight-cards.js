@@ -1,6 +1,4 @@
-import { getFightCards } from './api.js';
-
-const STRAPI_URL = 'http://localhost:1337';
+import { getFightCards, STRAPI_URL } from './api.js';
 
 /* ============================================================
    Helpers
@@ -139,8 +137,8 @@ function renderCard(entry) {
 
             <div class="fight-card-actions">
                 <!-- ✅ ফিক্স: # এর বদলে /fight-cards/ + slug বসানো হয়েছে -->
-                <a href="${slug ? `fight-card-detail.html?slug=${encodeURIComponent(slug)}` : 'how-to-watch.html'}" class="btn btn-primary">View Full Card</a>
-                <a href="how-to-watch.html" class="btn btn-ghost">How To Watch</a>
+                <a href="${slug ? `/fight-cards/${encodeURIComponent(slug)}` : '/how-to-watch'}" class="btn btn-primary">View Full Card</a>
+                <a href="/how-to-watch" class="btn btn-ghost">How To Watch</a>
             </div>
         </div>
     </article>`;
@@ -156,7 +154,6 @@ async function loadFightCards() {
     try {
         const res = await getFightCards();
         const list = Array.isArray(res?.data) ? res.data : [];
-        console.log('🥊 Fight cards loaded:', list);
 
         if (list.length === 0) {
             container.innerHTML = '<p class="is-empty">No fight cards available yet. Check back soon!</p>';

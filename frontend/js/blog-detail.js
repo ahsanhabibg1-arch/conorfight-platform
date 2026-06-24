@@ -1,7 +1,7 @@
 // CMS-driven blog detail: finds a post by slug, renders the full article,
 // and injects Article JSON-LD schema for SEO.
 
-const STRAPI_URL = 'http://localhost:1337';
+import { STRAPI_URL } from './api.js';
 
 /* ---------- Helpers ---------- */
 function escapeHTML(str) {
@@ -108,6 +108,68 @@ function getSlug() {
 }
 
 /* ---------- SEO ---------- */
+function upsertMeta(attr, key, content) {
+    if (!content) return;
+    let tag = document.head.querySelector(`meta[${attr}="${key}"]`);
+    if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(attr, key);
+        document.head.appendChild(tag);
+    }
+    tag.setAttribute('content', content);
+}
+
+// Dynamic canonical + OG/Twitter tags for the article.
+function updateSEO(post, slug, imageUrl) {
+    try {
+        const url = `https://conorfight.com/blog/${slug}`;
+        let canonical = document.head.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+        }
+        canonical.setAttribute('href', url);
+
+        const desc = post.excerpt || richToText(post.content).slice(0, 160);
+        upsertMeta('property', 'og:title', post.title || 'Article');
+        upsertMeta('property', 'og:description', desc);
+        upsertMeta('property', 'og:url', url);
+        upsertMeta('name', 'description', desc);
+        if (imageUrl) {
+            upsertMeta('property', 'og:image', imageUrl);
+            upsertMeta('name', 'twitter:image', imageUrl);
+        }
+    } catch (e) {
+        console.warn('Blog SEO update skipped:', e);
+    }
+}
+
+// BreadcrumbList JSON-LD: Home › Blog › Article.
+function injectBreadcrumb(post, slug) {
+    try {
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://conorfight.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://conorfight.com/blog" },
+                { "@type": "ListItem", "position": 3, "name": post.title || "Article", "item": `https://conorfight.com/blog/${slug}` }
+            ]
+        };
+        let tag = document.getElementById('breadcrumb-schema');
+        if (!tag) {
+            tag = document.createElement('script');
+            tag.type = 'application/ld+json';
+            tag.id = 'breadcrumb-schema';
+            document.head.appendChild(tag);
+        }
+        tag.textContent = JSON.stringify(schema);
+    } catch (e) {
+        console.warn('Breadcrumb schema skipped:', e);
+    }
+}
+
 function injectSchema(post, imageUrl) {
     try {
         const schema = {
@@ -165,7 +227,7 @@ async function loadDetail() {
 
     const slug = getSlug();
     if (!slug) {
-        container.innerHTML = '<p class="is-empty">No article specified. <a href="blog.html">Browse the blog →</a></p>';
+        container.innerHTML = '<p class="is-empty">No article specified. <a href="/blog">Browse the blog →</a></p>';
         return;
     }
 
@@ -183,14 +245,16 @@ async function loadDetail() {
         }
 
         if (!post) {
-            container.innerHTML = '<p class="is-empty">Post not found. <a href="blog.html">Back to blog →</a></p>';
+            container.innerHTML = '<p class="is-empty">Post not found. <a href="/blog">Back to blog →</a></p>';
             return;
         }
 
         document.title = `${post.title ?? 'Article'} · ConorFight`;
         const img = mediaUrl(post.featuredImage ?? post.FeaturedImage);
         container.innerHTML = renderDetail(post);
+        updateSEO(post, slug, img);
         injectSchema(post, img);
+        injectBreadcrumb(post, slug);
     } catch (error) {
         console.error('❌ Blog detail load error:', error);
         container.innerHTML = '<p class="is-empty">Unable to load this article right now. Please try again later.</p>';
