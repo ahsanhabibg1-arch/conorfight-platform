@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "predictions",
+  "info": {
+    "singularName": "prediction",
+    "pluralName": "predictions",
+    "displayName": "Predictions"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fight-card.fight-card"
+    },
+    "fighterA": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fighter.fighter"
+    },
+    "fighterB": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fighter.fighter"
+    },
+    "predictedWinner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fighter.fighter"
+    },
+    "confidence": {
+      "type": "integer"
+    },
+    "analysis": {
+      "type": "blocks"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

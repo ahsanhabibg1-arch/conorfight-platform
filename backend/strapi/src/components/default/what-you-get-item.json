@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_default_what_you_get_items",
+  "info": {
+    "displayName": "WhatYouGetItem",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "item": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

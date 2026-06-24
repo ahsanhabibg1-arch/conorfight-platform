@@ -1,0 +1,60 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroTitle": {
+      "type": "string"
+    },
+    "heroSubtitle": {
+      "type": "blocks"
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "conorOverview": {
+      "type": "blocks"
+    },
+    "maxOverview": {
+      "type": "blocks"
+    },
+    "conorRecord": {
+      "type": "blocks"
+    },
+    "maxRecord": {
+      "type": "blocks"
+    },
+    "keyInfoTable": {
+      "type": "json"
+    },
+    "howToWatchContent": {
+      "type": "text"
+    },
+    "conclusionContent": {
+      "type": "text"
+    },
+    "whatYouGetItem": {
+      "type": "component",
+      "component": "default.what-you-get-item",
+      "repeatable": true
+    },
+    "countdownDate": {
+      "type": "datetime"
+    }
+  }
+}

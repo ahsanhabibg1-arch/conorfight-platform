@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "how_to_watches",
+  "info": {
+    "singularName": "how-to-watch",
+    "pluralName": "how-to-watches",
+    "displayName": "How To Watch"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroTitle": {
+      "type": "string"
+    },
+    "heroSubtitle": {
+      "type": "string"
+    },
+    "heroCtaText": {
+      "type": "string"
+    },
+    "heroCtaUrl": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "seo": {
+      "type": "component",
+      "component": "default.seo",
+      "repeatable": false
+    }
+  }
+}

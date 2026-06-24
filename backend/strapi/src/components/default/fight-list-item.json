@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_default_fight_list_items",
+  "info": {
+    "displayName": "FightListItem",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "fighterA": {
+      "type": "string"
+    },
+    "fighterB": {
+      "type": "string"
+    },
+    "weightClass": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

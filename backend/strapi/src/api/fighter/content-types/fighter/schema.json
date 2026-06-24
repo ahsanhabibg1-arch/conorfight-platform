@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fighters",
+  "info": {
+    "singularName": "fighter",
+    "pluralName": "fighters",
+    "displayName": "Fighters"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

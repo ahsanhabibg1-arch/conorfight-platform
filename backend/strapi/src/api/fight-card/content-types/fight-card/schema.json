@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fight_cards",
+  "info": {
+    "singularName": "fight-card",
+    "pluralName": "fight-cards",
+    "displayName": "Fight Cards"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid"
+    },
+    "eventDate": {
+      "type": "datetime"
+    },
+    "venue": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "poster": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "mainEvent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fighter.fighter"
+    },
+    "coMainEvent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fighter.fighter"
+    },
+    "statuss": {
+      "type": "enumeration",
+      "enum": [
+        "Upcoming"
+      ]
+    },
+    "FightListItem": {
+      "type": "component",
+      "component": "default.fight-list-item",
+      "repeatable": true
+    },
+    "eventName": {
+      "type": "string",
+      "required": true
+    },
+    "prelims": {
+      "type": "component",
+      "component": "default.fight-list-item",
+      "repeatable": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "default.seo",
+      "repeatable": false
+    }
+  }
+}
