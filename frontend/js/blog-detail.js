@@ -1,7 +1,7 @@
 // CMS-driven blog detail: finds a post by slug, renders the full article,
 // and injects Article JSON-LD schema for SEO.
 
-import { STRAPI_URL } from './api.js';
+import { STRAPI_URL, cachedFetch } from './api.js';
 
 /* ---------- Helpers ---------- */
 function escapeHTML(str) {
@@ -232,15 +232,12 @@ async function loadDetail() {
     }
 
     try {
-        const res = await fetch(`${STRAPI_URL}/api/blogs?populate=*&filters[slug][$eq]=${encodeURIComponent(slug)}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-
+        const json = await cachedFetch(`${STRAPI_URL}/api/blogs?populate=*&filters[slug][$eq]=${encodeURIComponent(slug)}`);
         let post = (Array.isArray(json?.data) ? json.data : []).map(fields)[0];
 
         // Fallback: if the filter returned nothing, fetch all and match locally.
         if (!post) {
-            const all = await fetch(`${STRAPI_URL}/api/blogs?populate=*`).then(r => r.json());
+            const all = await cachedFetch(`${STRAPI_URL}/api/blogs?populate=*`);
             post = (Array.isArray(all?.data) ? all.data : []).map(fields).find(p => p.slug === slug);
         }
 

@@ -1,6 +1,6 @@
 // CMS-driven blog listing: fetches posts from Strapi and renders cards.
 
-import { STRAPI_URL } from './api.js';
+import { STRAPI_URL, cachedFetch } from './api.js';
 
 /* ---------- Helpers ---------- */
 function escapeHTML(str) {
@@ -73,10 +73,7 @@ async function loadBlogs() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${STRAPI_URL}/api/blogs?populate=*&sort=createdAt:desc`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-
+        const json = await cachedFetch(`${STRAPI_URL}/api/blogs?populate=*&sort=createdAt:desc`);
         const posts = (Array.isArray(json?.data) ? json.data : []).map(fields);
 
         if (posts.length === 0) {

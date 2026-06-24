@@ -1,7 +1,7 @@
 // CMS-driven FAQ page: fetches FAQs from Strapi, renders an accordion,
 // and injects FAQPage JSON-LD schema for rich snippets.
 
-import { STRAPI_URL } from './api.js';
+import { STRAPI_URL, cachedFetch } from './api.js';
 
 /* ============================================================
    Helpers
@@ -123,10 +123,7 @@ async function loadFaqs() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${STRAPI_URL}/api/faqs?populate=*&sort=sortOrder:asc`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-
+        const json = await cachedFetch(`${STRAPI_URL}/api/faqs?populate=*&sort=sortOrder:asc`);
         const items = (Array.isArray(json?.data) ? json.data : []).map(fields);
 
         if (items.length === 0) {
