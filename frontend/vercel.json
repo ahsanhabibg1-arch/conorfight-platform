@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/fight-cards/:slug", "destination": "/fight-card-detail.html" },
-    { "source": "/blog/:slug", "destination": "/blog-detail.html" }
+    { "source": "/fight-cards/:slug", "destination": "/fight-card-detail" },
+    { "source": "/blog/:slug", "destination": "/blog-detail" }
   ]
 }
